@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Docs</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+                <span class="logo-text">TaskFlow</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="features.html" class="nav-link">Features</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="docs.html" class="nav-link active">Docs</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Populated by auth.js -->
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-section">
+            <h1 class="hero-title">Documentation</h1>
+            <p class="hero-subtitle">Technical Explanation</p>
+        </div>
+        <div class="container" style="max-width: 800px; margin: 0 auto; line-height: 1.8;">
+            <h2>The Codebase</h2>
+            <p>TaskFlow runs entirely in your browser using the trifecta of web development:</p>
+            <ul>
+                <li><strong>HTML:</strong> Provides the semantic structure and defines the application's elements
+                    (`todo-form`, `todo-list`).</li>
+                <li><strong>CSS (style.css):</strong> Defines visual aesthetics utilizing custom CSS variables for easy
+                    theming (`--primary`, `--background-light`).</li>
+                <li><strong>JavaScript (app.js):</strong> Controls all logic. Modifies the Document Object Model (DOM)
+                    and utilizes memory storage (`localStorage`).</li>
+            </ul>
+
+            <h2 style="margin-top:2rem;">Key Functions</h2>
+            <ul>
+                <li><code>renderTasks()</code>: Wipes the DOM array, and iterates through the `tasks` state building the
+                    string-interpolated HTML blocks.</li>
+                <li><code>saveTasks()</code>: Serializes array object as a JSON string and updates Local Storage.</li>
+                <li><code>addTask()</code>: Reads user string input, applies a unique timestamp as an ID, and sets
+                    default boolean state.</li>
+                <li><code>deleteTask(id)</code>: Utilizes JS Array Iteration `filter` to strip out the object matching
+                    the provided ID.</li>
+                <li><code>toggleComplete(id)</code>: Loops through task objects using `map` arrays and inverses the
+                    specific boolean payload.</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <span class="material-symbols-outlined text-primary">check_circle</span>
+                    <span>TaskFlow</span>
+                </div>
+                <p class="footer-text">© 2026 TaskFlow Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Logic Script -->
+    <script src="./js/auth.js"></script>
+</body>
+
+</html>

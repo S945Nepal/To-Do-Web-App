@@ -1,0 +1,386 @@
+/* auth.css — TaskFlow Authentication + UI Component Styles */
+
+/* ─── Form helpers (used inside the modal) ───────────────────────── */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.form-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-light);
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-input.error {
+    border-color: #ef4444;
+}
+
+.form-input.error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+.error-msg {
+    color: #ef4444;
+    font-size: 0.75rem;
+    font-weight: 500;
+    min-height: 1rem;
+}
+
+.main-error {
+    text-align: center;
+    margin-top: -0.5rem;
+}
+
+.btn-full {
+    width: 100%;
+    padding: 0.875rem;
+    font-size: 1rem;
+    margin-top: 0.25rem;
+}
+
+/* ─── Auth Modal overlay ─────────────────────────────────────────── */
+#auth-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+#auth-modal.open {
+    display: flex;
+}
+
+.auth-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+}
+
+.auth-modal-box {
+    position: relative;
+    z-index: 1001;
+    width: min(26rem, 92vw);
+    background: var(--surface-light);
+    border: 1px solid var(--border-light);
+    border-radius: 1.25rem;
+    padding: 2rem 2rem 2.25rem;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+    animation: modalIn 0.25s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.auth-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    line-height: 1;
+    border-radius: 0.375rem;
+    transition: color 0.2s, background 0.2s;
+}
+
+.auth-modal-close:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Tab bar ───────────────────────────────────────────────────── */
+.auth-modal-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 0.75rem;
+}
+
+.auth-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    transition: color 0.2s, background 0.2s;
+}
+
+.auth-tab:hover {
+    color: var(--text-primary);
+}
+
+.auth-tab.active {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+/* ─── Empty state (shown in task list when not logged in) ─────── */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.empty-state .empty-icon {
+    font-size: 3rem;
+    opacity: 0.4;
+}
+
+.empty-state p {
+    font-size: 0.95rem;
+    max-width: 22rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ─── FILTER BAR ──────────────────────────────────────────────────
+   ═══════════════════════════════════════════════════════════════════ */
+
+.filter-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.875rem 1.25rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.75rem;
+    background: var(--surface-light);
+    border: 1px solid var(--border-light);
+    border-radius: 1rem;
+}
+
+.filter-bar-left {
+    flex: 0 0 auto;
+}
+
+/* Task count badge beside title */
+.task-count-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--border-light);
+    border-radius: 999px;
+    padding: 0.1rem 0.6rem;
+    margin-left: 0.6rem;
+    vertical-align: middle;
+}
+
+/* ─── Status filter pills ──────────────────────────────────────── */
+.filter-pills {
+    display: flex;
+    gap: 0.375rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-light);
+    border-radius: 999px;
+    padding: 0.25rem;
+}
+
+.filter-pill {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.375rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+}
+
+.filter-pill:hover {
+    color: var(--text-primary);
+}
+
+.filter-pill.active {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(109, 40, 217, 0.35);
+}
+
+/* ─── Right controls ─────────────────────────────────────────── */
+.filter-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+    flex-wrap: wrap;
+}
+
+/* Search box */
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.6rem;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.search-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.875rem;
+    padding: 0.45rem 0.75rem 0.45rem 2.1rem;
+    width: 11rem;
+    transition: border-color 0.2s, box-shadow 0.2s, width 0.25s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+    width: 14rem;
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+/* Sort dropdown */
+.sort-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sort-icon {
+    position: absolute;
+    left: 0.6rem;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.sort-select {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    border-radius: 0.5rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.875rem;
+    padding: 0.45rem 1rem 0.45rem 2.1rem;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* Darker option background for dark-mode readability */
+.sort-select option {
+    background: #1a1a2e;
+    color: var(--text-primary);
+}
+
+/* Clear done button */
+.btn-clear-done {
+    display: none;
+    /* shown via JS when tasks are completed */
+    align-items: center;
+    gap: 0.375rem;
+    background: none;
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    border-radius: 0.5rem;
+    color: #ef4444;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    white-space: nowrap;
+}
+
+.btn-clear-done:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+}
+
+.btn-clear-done .material-symbols-outlined {
+    font-size: 1.1rem;
+}
+
+/* Subtle fade for completed task rows */
+.task-item--done {
+    opacity: 0.65;
+}
+
+/* ─── Responsive tweaks ──────────────────────────────────────── */
+@media (max-width: 720px) {
+    .filter-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-bar-right {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .search-input,
+    .search-input:focus {
+        width: 100%;
+    }
+}
